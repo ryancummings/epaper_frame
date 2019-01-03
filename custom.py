@@ -19,8 +19,8 @@ if not debug:
 r1_start = datetime.time(23, 30, 0)
 r1_end = datetime.time(4, 30, 0)
 
-r2_start = datetime.time(10, 30, 0)
-r2_end = datetime.time(11, 0, 0)
+r2_start = datetime.time(9, 30, 0)
+r2_end = datetime.time(1, 30, 0)
 
 
 def main():
@@ -63,7 +63,7 @@ def main():
 
 
 if not debug:
-    schedule.every(2).minutes.do(main)
+    schedule.every(60).minutes.do(main)
 
 if __name__ == '__main__':
     if not debug:
