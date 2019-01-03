@@ -64,6 +64,7 @@ def draw_image():
     font_small_size = 60
 
     fits = False
+    print('Scaling font ...')
     while not fits:
         text_output = []
         par_text = data['weather']['hour_summary'].split(' ') + data['weather']['day_summary'].split(' ') + ['Updated','at'] + data['time'].split(' ')
