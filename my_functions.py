@@ -10,11 +10,9 @@ import os
 
 def get_data():
     
-    print("Getting date and time")
     date_str = datetime.datetime.now().strftime("%m/%d/%Y")
     time_str = datetime.datetime.now().strftime("%H:%M:%S")
 
-    print("Getting weather")
     lat = 40.664501
     lon = -73.977212
     url = ('https://api.darksky.net/forecast/459a764488e7dfb2bcb73fb429ac833b/{},{}'.format(lat,lon))
@@ -25,6 +23,7 @@ def get_data():
             'day_summary': response.json()['daily']['summary']}
 
     weather_data['currently'] = "{}F | {}MPH".format(weather_data['temp'], int(round(weather_data['wind'])))
+    print('Weather info downloaded')
     return {'date': date_str,
             'time': time_str,
             'weather': weather_data,
