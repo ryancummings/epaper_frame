@@ -40,7 +40,7 @@ def draw_image():
     EPD_WIDTH       = 640
     EPD_HEIGHT      = 384
     
-    x_offset = 20
+    x_offset = 12
     y_margin = 10
     font_medium = ImageFont.truetype(font_file, 56)
     font_large = ImageFont.truetype(font_file, 74)
