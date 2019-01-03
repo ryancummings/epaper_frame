@@ -67,6 +67,7 @@ def draw_image():
     while not fits:
         text_output = []
         par_text = data['weather']['hour_summary'].split(' ') + data['weather']['day_summary'].split(' ')
+        print(par_text)
         font_small = ImageFont.truetype(font_file, font_small_size)
 
         while len(par_text) > 0:
