@@ -72,7 +72,7 @@ def draw_image():
 
         while len(par_text) > 0:
             line = []
-            while len(par_text) > 0 and font_small.getsize(' '.join(line + [par_text[0]]))[0] < EPD_WIDTH:
+            while len(par_text) > 0 and font_small.getsize(' '.join(line + [par_text[0]]))[0] < (EPD_WIDTH - x_offset)
                 line.append(par_text.pop(0))
             text_output.append(' '.join(line))
             
