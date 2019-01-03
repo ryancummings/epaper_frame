@@ -27,6 +27,7 @@ def main():
 
     Himage = draw_image()
     Himage.save('debug.bmp')
+    print('image produced')
     
 # ---------------------- LIVE CODE ------------------
     if not debug:
