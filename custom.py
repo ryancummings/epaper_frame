@@ -62,7 +62,7 @@ def main():
 
 
 if not debug:
-    schedule.every(60).minutes.do(main)
+    schedule.every(2).minutes.do(main)
 
 if __name__ == '__main__':
     if not debug:
