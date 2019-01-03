@@ -11,7 +11,7 @@ import os
 def get_data():
     
     date_str = datetime.datetime.now().strftime("%m/%d/%Y")
-    time_str = datetime.datetime.now().strftime("%H:%M:%S")
+    time_str = datetime.datetime.now().strftime("%H:%M")
 
     lat = 40.664501
     lon = -73.977212
@@ -66,31 +66,15 @@ def draw_image():
     fits = False
     while not fits:
         text_output = []
-        par_text = data['weather']['hour_summary'].split(' ') + data['weather']['day_summary'].split(' ')
-        print(par_text)
-        print(font_file)
+        par_text = data['weather']['hour_summary'].split(' ') + data['weather']['day_summary'].split(' ') + ['Updated','at'] + data['time'].split(' ')
         font_small = ImageFont.truetype(font_file, font_small_size)
 
         while len(par_text) > 0:
             line = []
-            line_full = False
-            while not line_full:
+            while len(par_text) > 0 and font_small.getsize(' '.join(line + [par_text[0]]))[0] < EPD_WIDTH:
                 line.append(par_text.pop(0))
-                if len(par_text) > 0:
-                    width, height = font_small.getsize(' '.join(line + [par_text[0]]))
-                    if width > EPD_WIDTH:
-                        par_text = [line[-1]] + par_text
-                        line = line[:-1]
-                        line_full = True
-                else:
-                    width, height = font_small.getsize(' '.join(line))
-                    if width > EPD_WIDTH:
-                        par_text = [line[-1]] + par_text
-                        line = line[:-1]
-                    line_full = True
             text_output.append(' '.join(line))
-            line_full = False
-
+            
         y_space = EPD_HEIGHT - y_text
         for line in text_output:
             width, height = font_small.getsize(line)
