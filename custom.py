@@ -1,7 +1,7 @@
 #!/usr/bin/pythonuu
 # -*- coding:utf-8 -*-
 
-debug = False
+debug = True
 
 import time
 from PIL import Image,ImageDraw,ImageFont

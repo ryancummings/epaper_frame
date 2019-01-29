@@ -9,6 +9,12 @@ import requests
 import os
 
 def get_data():
+
+    bitcoin_api_url = 'https://api.coinmarketcap.com/v1/ticker/bitcoin/'
+    response = requests.get(bitcoin_api_url)
+    response_json = response.json()
+    price = str(round(float(response_json[0]['price_usd'])))
+
     
     date_str = datetime.datetime.now().strftime("%m/%d/%Y")
     time_str = datetime.datetime.now().strftime("%H:%M")
@@ -27,7 +33,10 @@ def get_data():
     return {'date': date_str,
             'time': time_str,
             'weather': weather_data,
+            'btcprice': price,
             }
+
+
 
             
 def draw_image():
@@ -67,7 +76,7 @@ def draw_image():
     print('Scaling font ...')
     while not fits:
         text_output = []
-        par_text = data['weather']['hour_summary'].split(' ') + data['weather']['day_summary'].split(' ') + ['Updated','at'] + data['time'].split(' ')
+        par_text = data['weather']['hour_summary'].split(' ') + data['weather']['day_summary'].split(' ') + ['BTC = ${}'.format(data['btcprice'])] + ['Updated','at'] + data['time'].split(' ')
         font_small = ImageFont.truetype(font_file, font_small_size)
 
         while len(par_text) > 0:
