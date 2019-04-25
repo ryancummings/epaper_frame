@@ -25,31 +25,34 @@ r2_end = datetime.time(1, 30, 0)
 
 def main():
 
-    Himage = draw_image()
-    Himage.save('debug.bmp')
-    print('image produced')
+    try:
+        Himage = draw_image()
+        Himage.save('debug.bmp')
+        print('image produced')
     
-# ---------------------- LIVE CODE ------------------
-    if not debug:
-        now = datetime.datetime.now().time()
-        if now >= r1_start or now <= r1_end or (now >=r2_start and now <= r2_end):
-            print("sleeping until Ryan is around")
-            return
 
-        epd = epd7in5.EPD()
-        epd.init()
-        # print("Clear")
-        # epd.Clear(0xFF)
+        if not debug:
+            now = datetime.datetime.now().time()
+            if now >= r1_start or now <= r1_end or (now >=r2_start and now <= r2_end):
+                print("sleeping until Ryan is around")
+                return
 
-        epd.display(epd.getbuffer(Himage))
-        time.sleep(2)
+            epd = epd7in5.EPD()
+            epd.init()
+            # print("Clear")
+            # epd.Clear(0xFF)
 
-        # bmp = Image.open('100x100.bmp')
-        # Himage2.paste(bmp, (50,10))
-        # epd.display(epd.getbuffer(Himage2))
-        # time.sleep(2)
+            epd.display(epd.getbuffer(Himage))
+            time.sleep(2)
 
-        epd.sleep()
+            # bmp = Image.open('100x100.bmp')
+            # Himage2.paste(bmp, (50,10))
+            # epd.display(epd.getbuffer(Himage2))
+            # time.sleep(2)
+
+            epd.sleep()
+    except:
+        return
 # ---------------------- END LIVE CODE -----------------
 
 # def get_headline():
