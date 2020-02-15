@@ -29,7 +29,7 @@ def main():
         Himage = draw_image()
         Himage.save('debug.bmp')
         print('image produced')
-    
+
 
         if not debug:
             now = datetime.datetime.now().time()
