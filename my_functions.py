@@ -15,7 +15,7 @@ def get_data():
     response_json = response.json()
     price = str(round(float(response_json[0]['price_usd'])))
 
-    
+
     date_str = datetime.datetime.now().strftime("%m/%d/%Y")
     time_str = datetime.datetime.now().strftime("%H:%M")
 
@@ -38,23 +38,23 @@ def get_data():
 
 
 
-            
 def draw_image():
 
     data = get_data()
-    
-    cwd = os.getcwd()
+
+    # cwd = os.getcwd()
+    cwd = '/home/pi/epaper_frame'
     font_file = cwd + '/SourceSerifPro-Bold.otf'
 
     EPD_WIDTH       = 640
     EPD_HEIGHT      = 384
-    
+
     x_offset = 12
     y_margin = 10
     font_medium = ImageFont.truetype(font_file, 56)
     font_large = ImageFont.truetype(font_file, 74)
 
-    
+
     Himage = Image.new('1', (EPD_WIDTH, EPD_HEIGHT), 255)  # 255: clear the frame
     draw = ImageDraw.Draw(Himage)
 
@@ -84,7 +84,7 @@ def draw_image():
             while len(par_text) > 0 and font_small.getsize(' '.join(line + [par_text[0]]))[0] < (EPD_WIDTH - x_offset):
                 line.append(par_text.pop(0))
             text_output.append(' '.join(line))
-            
+
         y_space = EPD_HEIGHT - y_text
         for line in text_output:
             width, height = font_small.getsize(line)
@@ -94,7 +94,7 @@ def draw_image():
             fits = True
         else:
             font_small_size -= 2
-                      
+
     for line in text_output:
         width, height = font_small.getsize(line)
         draw.text((x_offset, y_text), line, font = font_small, fill=0)
@@ -107,8 +107,8 @@ def draw_image():
     bike_width = EPD_WIDTH - Left - bike_margin
     bike_height = EPD_HEIGHT - Bottom - bike_margin
 
-    
-    
+
+
     size = [bike_width, bike_height]
     bike = Image.open('bicycle.png').convert("RGBA").resize(size,Image.ANTIALIAS).transpose(Image.FLIP_LEFT_RIGHT)
     bike_background = Image.new("RGBA", bike.size, "WHITE")
@@ -116,4 +116,3 @@ def draw_image():
     Himage.paste(bike_background, (Left + int((bike_margin / 2)), int(bike_margin / 2)))
 
     return Himage
-

@@ -31,7 +31,7 @@ def main():
 
             epd.sleep()
     except:
-        return
+        print('Error encountered')
 # ---------------------- END LIVE CODE -----------------
 
 # def get_headline():
