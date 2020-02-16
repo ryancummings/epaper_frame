@@ -45,6 +45,7 @@ def draw_image():
     # cwd = os.getcwd()
     cwd = '/home/pi/epaper_frame'
     font_file = cwd + '/SourceSerifPro-Bold.otf'
+    print(font_file)
 
     EPD_WIDTH       = 640
     EPD_HEIGHT      = 384
