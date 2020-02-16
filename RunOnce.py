@@ -30,8 +30,7 @@ def main():
             time.sleep(2)
 
             epd.sleep()
-    except:
-        print('Error encountered')
+    except Exception as e: print(e)
 # ---------------------- END LIVE CODE -----------------
 
 # def get_headline():
