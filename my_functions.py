@@ -111,7 +111,7 @@ def draw_image():
 
 
     size = [bike_width, bike_height]
-    bike = Image.open('bicycle.png').convert("RGBA").resize(size,Image.ANTIALIAS).transpose(Image.FLIP_LEFT_RIGHT)
+    bike = Image.open('/home/pi/epaper_frame/bicycle.png').convert("RGBA").resize(size,Image.ANTIALIAS).transpose(Image.FLIP_LEFT_RIGHT)
     bike_background = Image.new("RGBA", bike.size, "WHITE")
     bike_background.paste(bike, (0, 0), bike)
     Himage.paste(bike_background, (Left + int((bike_margin / 2)), int(bike_margin / 2)))
