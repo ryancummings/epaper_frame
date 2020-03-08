@@ -5,16 +5,39 @@ from PIL import Image,ImageDraw,ImageFont
 import time
 import datetime
 import traceback
-import requests
 import os
+from requests import Request, Session
+from requests.exceptions import ConnectionError, Timeout, TooManyRedirects
+import json
+import requests
 
 def get_data():
+    bitcoin_api_key = 'f0bbdf7b-fb8b-476b-874d-f09a966f3cf3'
+    url = 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest'
+    parameters = {
+        'convert':'USD',
+        'id': '1',
+    }
+    headers = {
+        'Accepts': 'application/json',
+        'X-CMC_PRO_API_KEY': bitcoin_api_key,
+    }
 
-    bitcoin_api_url = 'https://api.coinmarketcap.com/v1/ticker/bitcoin/'
-    response = requests.get(bitcoin_api_url)
-    response_json = response.json()
-    price = str(round(float(response_json[0]['price_usd'])))
+    session = Session()
+    session.headers.update(headers)
 
+    try:
+        response = session.get(url, params=parameters)
+        data = json.loads(response.text)
+        price = str(round(float(data['data']['1']['quote']['USD']['price'])))
+    except (ConnectionError, Timeout, TooManyRedirects) as e:
+        print(e)
+
+    # bitcoin_api_url = 'https://api.coinmarketcap.com/v1/ticker/bitcoin/'
+    # response = requests.get(bitcoin_api_url)
+    # response_json = response.json()
+    # print(response.json())
+    # price = str(round(float(response_json[0]['price_usd'])))
 
     date_str = datetime.datetime.now().strftime("%m/%d/%Y")
     time_str = datetime.datetime.now().strftime("%H:%M")
@@ -36,14 +59,11 @@ def get_data():
             'btcprice': price,
             }
 
-
-
 def draw_image():
 
     data = get_data()
-
     # cwd = os.getcwd()
-    cwd = '/home/pi/epaper_frame'
+    cwd = '/home/pi/python/epaper_frame'
     font_file = cwd + '/SourceSerifPro-Bold.otf'
     print(font_file)
 
@@ -108,10 +128,8 @@ def draw_image():
     bike_width = EPD_WIDTH - Left - bike_margin
     bike_height = EPD_HEIGHT - Bottom - bike_margin
 
-
-
     size = [bike_width, bike_height]
-    bike = Image.open('/home/pi/epaper_frame/bicycle.png').convert("RGBA").resize(size,Image.ANTIALIAS).transpose(Image.FLIP_LEFT_RIGHT)
+    bike = Image.open(cwd + '/bicycle.png').convert("RGBA").resize(size,Image.ANTIALIAS).transpose(Image.FLIP_LEFT_RIGHT)
     bike_background = Image.new("RGBA", bike.size, "WHITE")
     bike_background.paste(bike, (0, 0), bike)
     Himage.paste(bike_background, (Left + int((bike_margin / 2)), int(bike_margin / 2)))

@@ -18,9 +18,7 @@ def main():
 
     try:
         Himage = draw_image()
-        Himage.save('debug.bmp')
         print('image produced')
-
 
         if not debug:
             epd = epd7in5.EPD()
